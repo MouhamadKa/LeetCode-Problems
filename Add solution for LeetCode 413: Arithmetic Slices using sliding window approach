@@ -1,0 +1,11 @@
+class Solution:
+    def numberOfArithmeticSlices(self, nums: List[int]) -> int:
+        N = len(nums)
+        start = res = 0
+        for i in range(2, N):
+            if nums[i-1] - nums[i-2] != nums[i] - nums[i-1] or i == N - 1:
+                if nums[i-1] - nums[i-2] == nums[i] - nums[i-1] and i == N - 1:
+                    i += 1
+                res += sum(range(i - start - 1))
+                start = i - 1
+        return res
