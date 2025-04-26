@@ -1,0 +1,31 @@
+class Solution:
+    def longestSubstring(self, s: str, k: int) -> int:
+        N = len(s)
+        if N < k:
+            return 0
+        res = 0
+        hashmap = {}
+
+        def dfs(word, length):
+            if length < k:
+                return 0
+            if word in hashmap:
+                return hashmap[word]
+
+            freq = {}
+            for letter in word:
+                freq[letter] = freq.get(letter, 0) + 1
+            if all(v >= k for v in freq.values()):
+                hashmap[word] = length
+                return length
+            start = res = 0
+            for index, letter in enumerate(word):
+                if freq[letter] < k:
+                    res = max(res, dfs(word[start:index], index - start))
+                    start = index + 1
+                elif index == length -1:
+                    res = max(res, dfs(word[start: length], length - start))
+
+            hashmap[word] = res
+            return res
+        return dfs(s, N)
