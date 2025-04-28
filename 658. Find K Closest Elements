@@ -1,3 +1,4 @@
+# Using Binary Search --> More Efficient 
 class Solution:
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
         l, r = 0, len(arr) - k
@@ -8,3 +9,13 @@ class Solution:
             else:
                 r = m
         return arr[l : l + k]
+
+
+# Using Sliding Window --> More Clear
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        l = 0
+        for r in range(k, len(arr)):
+            if abs(arr[r] - x) < abs(arr[l] - x) or arr[r] == arr[l]:
+                l += 1
+        return arr[l:l+k]
