@@ -1,0 +1,19 @@
+class Solution:
+    def findLength(self, nums1: List[int], nums2: List[int]) -> int:
+        N1, N2 = len(nums1), len(nums2)
+        hashmap = defaultdict(list) # {num: indexex}
+        for i, n in enumerate(nums1):
+            hashmap[n].append(i)
+        res = 0
+        for index2, num in enumerate(nums2):
+            if num in hashmap:
+                for index1 in hashmap[num]:
+                    if  index1+res+1 > N1 or index2+res+1 > N2 or nums1[index1:index1+res+1] != nums2[index2:index2+res+1]:
+                        continue
+                    i = res + 1
+                    while index1 + i < N1 and index2 + i < N2 and nums1[index1+i] == nums2[index2+i]:
+                        i += 1
+                    res = max(res, i)
+            if res > N2 - index2:
+                break
+        return res
