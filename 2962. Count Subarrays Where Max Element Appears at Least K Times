@@ -1,0 +1,15 @@
+class Solution:
+    def countSubarrays(self, nums: List[int], k: int) -> int:
+        counter = res = 0
+        l, N = -1, len(nums)
+        _max = max(nums)
+        indexes = deque()
+        for r in range(N):
+            if nums[r] == _max:
+                indexes.append(r)
+                counter += 1
+            if counter == k:
+                counter -= 1
+                res += (N - r) * (indexes[0] - l)
+                l = indexes.popleft()
+        return res
