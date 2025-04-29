@@ -1,0 +1,4 @@
+class Solution:
+    def findLHS(self, nums: List[int]) -> int:
+        counter = Counter(nums)
+        return max([0] + [v + counter[k+1] for k, v in counter.items() if k+1 in counter])
