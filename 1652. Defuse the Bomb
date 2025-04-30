@@ -1,0 +1,22 @@
+class Solution:
+    def decrypt(self, code: List[int], k: int) -> List[int]:
+        N = len(code)
+        if k == 0:
+            return [0] * N
+        
+        res = []
+        if k < 0:
+            i = 0
+            total = sum(code[k:])
+            while i < N:
+                res.append(total)
+                total += code[i] - code[i+k]
+                i += 1
+        else:
+            i = N - 1
+            total = sum(code[:k])
+            while i >= 0:
+                res = [total] + res
+                total += code[i] - code[(k+i) % N]
+                i -= 1
+        return res
