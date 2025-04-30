@@ -1,0 +1,24 @@
+class Solution:
+    def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
+        res = 0
+        N_nums = len(nums)
+        if goal == 0:
+            l = 0
+            for index, num in enumerate(nums):
+                if num == 1:
+                    res += sum(range(index + 1 - l))
+                    l = index + 1
+                if index == N_nums - 1 and not nums[index]:
+                    res += sum(range(index + 2 - l))
+            return res
+                    
+
+        ones = [-1]
+        for index, num in enumerate(nums):
+            if num:
+                ones.append(index)
+        N_ones = len(ones)
+        ones += [N_nums]
+        for r in range(goal, N_ones):
+            res += (ones[r+1] - ones[r]) * (ones[r+1-goal] - ones[r-goal])
+        return res
