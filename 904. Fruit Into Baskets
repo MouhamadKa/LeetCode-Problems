@@ -1,0 +1,13 @@
+class Solution:
+    def totalFruit(self, fruits: List[int]) -> int:
+        hashmap = {}
+        res = l = 0
+        for r in range(len(fruits)):
+            hashmap[fruits[r]] = hashmap.get(fruits[r], 0) + 1
+            while len(hashmap) > 2:
+                hashmap[fruits[l]] -= 1
+                if not hashmap[fruits[l]]:
+                    del hashmap[fruits[l]]
+                l += 1
+            res = max(res, r + 1 - l)
+        return res
