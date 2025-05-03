@@ -1,0 +1,16 @@
+class Solution:
+    def minDominoRotations(self, tops: List[int], bottoms: List[int]) -> int:
+        t1, t2 = tops[0], bottoms[0]
+        res = 10**5
+        for t in (t1, t2):
+            Found = True
+            needed_t = needed_b = 0
+            for top, bottom in zip(tops, bottoms):
+                if t != top and t != bottom:
+                    Found = False
+                    break
+                if t != top: needed_t += 1
+                if t != bottom: needed_b += 1
+            if Found:
+                res = min(res, min(needed_t, needed_b))
+        return res if res != 10**5 else -1
