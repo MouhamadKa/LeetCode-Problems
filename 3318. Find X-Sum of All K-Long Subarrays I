@@ -1,0 +1,13 @@
+class Solution:
+    def findXSum(self, nums: List[int], k: int, x: int) -> List[int]:
+        freq = defaultdict(int)
+        res, N = [], len(nums)
+        l = 0
+        for r in range(N):
+            freq[nums[r]] += 1
+            if r + 1 - l == k:
+                temp = sorted([(v, k) for k, v in freq.items()], reverse=True)[:x]
+                res.append(sum([k * v for k, v in temp]))
+                freq[nums[l]] -= 1
+                l += 1
+        return res
