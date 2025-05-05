@@ -1,0 +1,31 @@
+class Solution:
+    def minFlips(self, s: str) -> int:
+        N = len(s)
+        s += s
+        target1 = target2 = ''
+        for i in range(N * 2):
+            if i % 2 == 0:
+                target1 += '0'
+                target2 += '1'
+            else:
+                target1 += '1'
+                target2 += '0'
+
+        l = r1 = r2 = 0
+        res = 10**6
+        for r in range(2*N):
+            if s[r] != target1[r]:
+                r1 += 1
+            if s[r] != target2[r]:
+                r2 += 1
+
+            if r + 1 - l > N:
+                if s[l] != target1[l]:
+                    r1 -= 1
+                if s[l] != target2[l]:
+                    r2 -= 1
+                res = min(res, r1, r2)
+                if not res:
+                    return 0
+                l += 1
+        return res
