@@ -1,0 +1,12 @@
+class Solution:
+    def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -> int:
+        satisfied = mx_window = window = 0
+        for r in range(len(customers)):
+            if grumpy[r]:
+                window += customers[r]
+            else:
+                satisfied += customers[r]
+            if r >= minutes and grumpy[r - minutes]:
+                window -= customers[r - minutes]
+            mx_window = max(mx_window, window)
+        return mx_window + satisfied
