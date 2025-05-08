@@ -1,0 +1,13 @@
+class Solution:
+    def balancedString(self, s: str) -> int:
+        counter = Counter(s)
+        N = len(s)
+        targetCount = N // 4
+        l, res = 0, N
+        for r in range(N):
+            counter[s[r]] -= 1
+            while l < N and all([v <= targetCount for v in counter.values()]):
+                res = min(res, r + 1 - l)
+                counter[s[l]] += 1
+                l += 1
+        return res
