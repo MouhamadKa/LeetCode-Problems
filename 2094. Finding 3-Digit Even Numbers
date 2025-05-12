@@ -1,0 +1,16 @@
+class Solution:
+    def findEvenNumbers(self, digits: List[int]) -> List[int]:
+        c, res = Counter(digits), []
+        for num in range(100, 999, 2):
+            nums = sorted([num // 100, num % 100 // 10, num % 10])
+            if not(all(num in c for num in nums)):
+                continue
+            if nums[0] == nums[2]:
+                if c[nums[0]] > 2:
+                    res.append(num)
+            elif nums[1] == nums[0] or nums[1] == nums[2]:
+                if c[nums[1]] > 1:
+                    res.append(num)
+            else:
+                res.append(num)
+        return res    
