@@ -1,0 +1,13 @@
+class Solution:
+    def countKConstraintSubstrings(self, s: str, k: int) -> int:
+        zeros = ones = res = l = 0
+        for r in range(len(s)):
+            if s[r] == '1': ones += 1
+            else: zeros += 1
+
+            while zeros > k and ones > k:
+                if s[l] == '1': ones -= 1
+                else: zeros -= 1
+                l += 1
+            res += r + 1 - l
+        return res
