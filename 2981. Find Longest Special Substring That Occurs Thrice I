@@ -1,0 +1,14 @@
+class Solution:
+    def maximumLength(self, s: str) -> int:
+        freq, N = {}, len(s)
+        for i in range(N):
+            for j in range(i+1, N+1):
+                if s[j-1] != s[i]:
+                    break
+                freq[s[i:j]] = freq.get(s[i:j], 0) + 1
+        res = -1
+        for k, v in freq.items():
+            word_length = len(k)
+            if v > 2 and word_length > res:
+                res = word_length
+        return res
