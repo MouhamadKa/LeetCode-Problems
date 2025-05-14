@@ -1,0 +1,9 @@
+class Solution:
+    def getAverages(self, nums: List[int], k: int) -> List[int]:
+        N, total = len(nums), sum(nums[:2*k])
+        res = [-1] * N
+        for i in range(k, N-k):
+            total += nums[i+k]
+            res[i] = total // (2 * k + 1)
+            total -= nums[i-k]
+        return res
