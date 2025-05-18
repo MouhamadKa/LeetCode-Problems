@@ -1,0 +1,15 @@
+class Solution:
+    def longestEqualSubarray(self, nums: List[int], k: int) -> int:
+        count = defaultdict(int)
+        left = res = max_freq = 0
+        
+        for right in range(len(nums)):
+            count[nums[right]] += 1
+            max_freq = max(max_freq, count[nums[right]])
+            while (right - left + 1) - max_freq > k:
+                count[nums[left]] -= 1
+                left += 1
+
+            remove = right - left + 1 - max_freq
+            res = max(res, right - left + 1 - remove)
+        return res
