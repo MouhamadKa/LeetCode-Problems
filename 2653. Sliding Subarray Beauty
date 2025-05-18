@@ -1,0 +1,30 @@
+from sortedcontainers import SortedList
+
+class Solution(object):
+    def getSubarrayBeauty(self, nums, k, x):
+        n = len(nums)
+        res = []
+        left = 0
+        currNegativeNums, len_negatives = SortedList(), 0
+        
+        for right in range(n):
+            num = nums[right]
+            if num < 0:
+                currNegativeNums.add(num)
+                len_negatives += 1
+
+
+            if right - left + 1 > k:
+                removedNum = nums[left]
+                if removedNum < 0:
+                    currNegativeNums.remove(removedNum)
+                    len_negatives -= 1
+                left += 1
+
+            if right - left + 1 == k:
+                if len_negatives < x:
+                    res.append(0)
+                else:
+                    res.append(currNegativeNums[x - 1])
+        
+        return res
