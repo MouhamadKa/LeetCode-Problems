@@ -1,0 +1,17 @@
+class Solution:
+    def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
+        freq = {}
+        paragraph.strip()
+        l, N = 0, len(paragraph)
+
+        for r in range(N):
+            if paragraph[r] in " !?',;.":
+                l += 1
+            elif r == N - 1 or paragraph[r+1] in " !?',;.":
+                freq[paragraph[l: r + 1].lower()] = freq.get(paragraph[l: r + 1].lower(), 0) + 1
+                l = r + 1
+        res, f = '', 0
+        for k, v in freq.items():
+            if v > f and k not in banned:
+                res, f = k, v
+        return res
