@@ -1,0 +1,9 @@
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        f = l = 0
+        for num in nums:
+            if num > l:
+                f, l = l, num
+            elif num > f:
+                f = num
+        return (f - 1) * (l - 1)
