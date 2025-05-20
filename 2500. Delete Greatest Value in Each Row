@@ -1,0 +1,6 @@
+class Solution:
+    def deleteGreatestValue(self, grid: List[List[int]]) -> int:
+        for row in grid:
+            row.sort(reverse = True)
+        grid = list(zip(*grid))
+        return sum(max(row) for row in grid)
