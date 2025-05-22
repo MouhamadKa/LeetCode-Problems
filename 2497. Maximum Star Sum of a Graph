@@ -1,0 +1,19 @@
+class Solution:
+    def maxStarSum(self, vals: List[int], edges: List[List[int]], k: int) -> int:
+        hashmap = defaultdict(list)
+        for u, v in edges:
+            heapq.heappush(hashmap[u], -vals[v])
+            heapq.heappush(hashmap[v], -vals[u])
+        res = - float('inf')
+        for node, edges in hashmap.items():
+            total = vals[node]
+            temp = []
+            for _ in range(k):
+                if not edges or edges[0] >= 0:
+                    break
+                temp.append(heapq.heappop(edges))
+                total -= temp[-1]
+            for e in temp:
+                heapq.heappush(edges, e)
+            res = max(res, total)
+        return max(res, max(vals))
