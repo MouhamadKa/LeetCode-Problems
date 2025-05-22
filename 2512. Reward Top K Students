@@ -1,0 +1,18 @@
+class Solution:
+    def topStudents(self, positive_feedback: List[str], negative_feedback: List[str], report: List[str], student_id: List[int], k: int) -> List[int]:
+        positive_feedback, negative_feedback = set(positive_feedback), set(negative_feedback)
+        N = len(report)
+        ranks = []
+        for index, id in enumerate(student_id):
+            rank = 0
+            for word in report[index].split():
+                if word in positive_feedback:
+                    rank += 3
+                elif word in negative_feedback:
+                    rank -= 1
+            heapq.heappush(ranks, (-rank, id))
+        res = []
+        while ranks and k > 0:
+            k -= 1
+            res.append(heapq.heappop(ranks)[1])
+        return res
