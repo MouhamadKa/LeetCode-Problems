@@ -1,0 +1,8 @@
+class Solution:
+    def maxSum(self, grid: List[List[int]], limits: List[int], k: int) -> int:
+        grid = [sorted(g, reverse = True) for g in grid]
+        maxes = []
+        for index, row in enumerate(grid):
+            maxes.extend(row[:limits[index]])
+        maxes.sort(reverse = True)
+        return sum(maxes[:k])
