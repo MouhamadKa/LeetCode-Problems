@@ -1,0 +1,14 @@
+class Solution:
+    def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
+        leave = []
+        total = 0
+        trips.sort(key = lambda e : e[1])
+        for num, start, end in trips:
+            while leave and leave[0][0] <=  start:
+                _, n = heapq.heappop(leave)
+                total -= n
+            total += num
+            if total > capacity:
+                return False
+            heapq.heappush(leave, [end, num])
+        return True
