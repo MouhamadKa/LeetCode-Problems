@@ -1,0 +1,6 @@
+class Solution:
+    def minimumCoins(self, prices: List[int]) -> int:
+        prices.append(0)
+        for i in range(len(prices)-2, -1, -1):
+            prices[i] += min(prices[i+1: i * 2 + 3])
+        return prices[0]
