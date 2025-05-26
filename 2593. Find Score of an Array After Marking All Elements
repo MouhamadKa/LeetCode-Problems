@@ -1,0 +1,15 @@
+class Solution:
+    def findScore(self, nums: List[int]) -> int:
+        nums = [(num, index) for index, num in enumerate(nums)]
+        heapq.heapify(nums)
+
+        seen = set()
+        res = 0
+        while nums:
+            num, index = heapq.heappop(nums)
+            if index in seen:
+                continue
+            
+            res += num
+            seen.update([index - 1, index, index + 1])
+        return res
