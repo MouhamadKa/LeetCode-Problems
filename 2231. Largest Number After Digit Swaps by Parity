@@ -1,0 +1,14 @@
+class Solution:
+    def largestInteger(self, num: int) -> int:
+        odd_heap, even_heap = [], []
+        for n in str(num):
+            n = -int(n)
+            if n % 2:
+                heapq.heappush(odd_heap, n)
+            else:
+                heapq.heappush(even_heap, n)
+        res = 0
+        for n in str(num):
+            res *= 10
+            res -= heapq.heappop(odd_heap) if int(n) % 2 else heapq.heappop(even_heap)
+        return int(res)
