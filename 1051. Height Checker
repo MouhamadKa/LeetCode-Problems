@@ -1,0 +1,6 @@
+class Solution:
+    def heightChecker(self, heights: List[int]) -> int:
+        counter = 0
+        expected = heights.copy()
+        heapq.heapify(expected)
+        return sum( heapq.heappop(expected) != heights[i] for i in range(len(heights)) )
