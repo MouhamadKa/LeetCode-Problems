@@ -1,0 +1,23 @@
+class Solution:
+    def longestDiverseString(self, a: int, b: int, c: int) -> str:
+        counter = [(-a, 'a'), (-b, 'b'), (-c, 'c')]
+        counter = [(x, y) for x, y in counter if x != 0]
+        heapq.heapify(counter)
+
+        res, len_res = '', 0
+        while counter:
+            value, key = heapq.heappop(counter)
+            if len_res < 2 or not (key == res[-1] == res[-2]):
+                res += key
+                if value < -1:
+                    heapq.heappush(counter, (value + 1, key))
+            elif not counter:
+                break
+            else:
+                value2, key2 = heapq.heappop(counter)
+                res += key2
+                if value2 < -1:
+                    heapq.heappush(counter, (value2 + 1, key2))
+                heapq.heappush(counter, (value, key))
+            len_res += 1
+        return res
