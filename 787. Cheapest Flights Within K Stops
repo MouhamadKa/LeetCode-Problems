@@ -1,0 +1,20 @@
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        hashmap = defaultdict(list)
+        for f, t, p in flights:
+            hashmap[f].append((t, p)) # from : (to, price)
+        visited = {src:0}
+
+        res = float('inf')
+        q = deque([(src, 0)])
+        for _ in range(k + 1):
+            for _ in range(len(q)):
+                node, curr_price = q.popleft()
+                for t, p in hashmap[node]:
+                    p += curr_price
+                    if t == dst:
+                        res = min(res, p)
+                    elif p < res and (t not in visited or visited[t] > p):
+                        visited[t] = p
+                        q.append((t, p))
+        return res if res != float('inf') else -1
