@@ -23,3 +23,15 @@ class Solution:
                 heapq.heappush(minHeap, freq)
 
         return res
+
+
+
+# Math Solution
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        counter = Counter(tasks)
+        max_freq = max(counter.values())
+        num_max = sum(freq == max_freq for freq in counter.values())
+        total = sum(counter.values())
+
+        return max((max_freq - 1) * (n + 1) + num_max, total)
