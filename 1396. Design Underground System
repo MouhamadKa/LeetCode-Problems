@@ -1,0 +1,20 @@
+class UndergroundSystem:
+
+    def __init__(self):
+        self.current_positions = defaultdict(tuple) # CardID -> (Current Station, CheckIn Time)
+        self.times = defaultdict(list) # (Start Station, End Station)  -> [Sum of Time Needed, counter]
+
+    def checkIn(self, id: int, stationName: str, t: int) -> None:
+        self.current_positions[id] = (stationName, t)
+
+    def checkOut(self, id: int, stationName: str, t: int) -> None:
+        startingStation, time = self.current_positions[id]
+        if (startingStation, stationName) not in self.times:
+            self.times[(startingStation, stationName)] = [0, 0]
+    
+        self.times[(startingStation, stationName)][0] += t - time
+        self.times[(startingStation, stationName)][1] += 1
+
+    def getAverageTime(self, startStation: str, endStation: str) -> float:
+            total, count = self.times[(startStation,endStation)]
+            return total / count
