@@ -1,0 +1,17 @@
+class Solution:
+    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:
+        subordinates = defaultdict(list)
+        for index, manager_id in enumerate(manager):
+            subordinates[manager_id].append(index)
+
+        q = deque ([(headID, 0)]) # (managerID, Time to reach to him)
+        total_time = 0
+
+        while q:
+            for _ in range(len(q)):
+                managerID, time = q.popleft()
+                total_time = max(total_time, time)
+                time += informTime[managerID]
+                for emp in subordinates[managerID]:
+                    q.append((emp, time))
+        return total_time
