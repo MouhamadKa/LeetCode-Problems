@@ -1,0 +1,11 @@
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        counter = Counter(s)
+        maxheap = [(-freq, letter) for letter, freq in counter.items()]
+        heapq.heapify(maxheap)
+
+        res = ''
+        while maxheap:
+            freq, letter = heapq.heappop(maxheap)
+            res += -freq * letter 
+        return res
