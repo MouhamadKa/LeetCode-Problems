@@ -1,0 +1,28 @@
+class Solution:
+    def reorganizeString(self, s: str) -> str:
+        counter = defaultdict(int)
+        max_freq = length = 0
+        for letter in s:
+            length += 1
+            counter[letter] += 1
+            if counter[letter] > max_freq:
+                max_freq = counter[letter]
+        if max_freq * 2 > length + 1:
+            return ''
+
+        res = ''
+        counter = [[-freq, letter] for letter, freq in counter.items()]
+        heapq.heapify(counter)
+        while counter:
+            freq1, letter1 = heapq.heappop(counter)
+            res += letter1
+            if not counter:
+                break
+            freq2, letter2 = heapq.heappop(counter)
+            res += letter2
+            if freq1 + 1:
+                heapq.heappush(counter, [freq1 + 1, letter1])
+            if freq2 + 1:
+                heapq.heappush(counter, [freq2 + 1, letter2])
+
+        return res
