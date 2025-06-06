@@ -1,0 +1,17 @@
+class Solution:
+    def mostPopularCreator(self, creators: List[str], ids: List[str], views: List[int]) -> List[List[str]]:
+        arr = {} # creator -> [total views, most popular video id, most popular video views]
+        max_views = 0
+        for i in range(len(creators)):
+            if creators[i] in arr:
+                if arr[creators[i]][2] < views[i] or (arr[creators[i]][2] == views[i] and ids[i] < arr[creators[i]][1]):
+                    arr[creators[i]][2] = views[i]
+                    arr[creators[i]][1] = ids[i]
+                arr[creators[i]][0] += views[i]
+            else:
+                arr[creators[i]] = [views[i], ids[i], views[i]]
+            
+            if arr[creators[i]][0] > max_views:
+                max_views = arr[creators[i]][0]
+
+        return [[creator, arr[creator][1]] for creator in arr if arr[creator][0] == max_views]
