@@ -1,0 +1,20 @@
+class Solution:
+    def repeatLimitedString(self, s: str, repeatLimit: int) -> str:
+        counter = Counter(s)
+        counter = [ (-ord(letter), freq) for letter, freq in counter.items()]
+        heapq.heapify(counter)
+
+        res = ''
+        while counter:
+            letter_asci, freq = heapq.heappop(counter)
+            res += chr(-letter_asci) * min(freq, repeatLimit)
+            freq -= min(freq, repeatLimit)
+            
+            if freq and counter:
+                letter2_asci, freq2 = heapq.heappop(counter)
+                res += chr(-letter2_asci)
+                freq2 -= 1
+                heapq.heappush(counter, (letter_asci, freq))
+                if freq2:
+                    heapq.heappush(counter, (letter2_asci, freq2))
+        return res
