@@ -1,0 +1,9 @@
+class Solution:
+    def largestLocal(self, grid: List[List[int]]) -> List[List[int]]:
+        N = len(grid)
+        for i in range(N - 2):
+            for j in range(N - 2):
+                grid[i][j] = max(max(grid[i][j:j+3]), max(grid[i+1][j:j+3]), max(grid[i+2][j:j+3]))
+            grid[i].pop()
+            grid[i].pop()
+        return grid[: N - 2]
