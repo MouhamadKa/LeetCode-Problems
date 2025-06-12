@@ -1,0 +1,4 @@
+class Solution:
+    def countGoodNumbers(self, n: int) -> int:
+        odd = 5 if n % 2 else 1
+        return pow(20, n // 2, 10**9 + 7) * odd % (10**9 + 7)
