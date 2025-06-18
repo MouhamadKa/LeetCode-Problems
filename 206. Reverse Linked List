@@ -1,0 +1,25 @@
+Recursive Approach:
+
+class Solution:
+    def reverseList(self, head):
+        def func(node, prev):
+            nxt = node.next
+            node.next = prev
+            if not nxt:
+                return node
+            return func(nxt, node)
+
+        return func(head, None) if head else None
+
+
+Iterative Approach:
+
+class Solution:
+    def reverseList(self, head):
+        prev, curr = None, head
+        while curr:
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
+        return prev
