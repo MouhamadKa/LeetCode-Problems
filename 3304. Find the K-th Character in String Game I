@@ -1,0 +1,28 @@
+# Iterative Approach
+class Solution:
+    def kthCharacter(self, k: int) -> str:
+        letters = string.ascii_lowercase
+        dict = {letters[i] : letters[(i + 1) % 26] for i in range(26)}
+
+        res, length = 'a', 1
+        while length < k:
+            length *= 2
+            for letter in res:
+                res += dict[letter]
+        return res[k - 1]
+
+
+# Recursive Approach
+class Solution:
+    def kthCharacter(self, k: int) -> str:
+        letters = string.ascii_lowercase
+        dict = {letters[i] : letters[(i + 1) % 26] for i in range(26)}
+
+        def func(word, length):
+            if length >= k:
+                return word[k - 1]
+            for letter in word:
+                word += dict[letter]
+            return func(word, length * 2)
+
+        return func('a', 1)
