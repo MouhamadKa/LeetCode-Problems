@@ -1,0 +1,65 @@
+# Queue-Based Approach
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        q = deque()
+        node = head
+        while node:
+            nxt = node.next
+            node.next = None
+            q.append(node)
+            node = nxt
+
+        while q[0] != q[-1]:
+            first = q.popleft()
+            first.next = q.pop()
+            if not q:
+                break
+            first.next.next = q[0]
+
+
+# Recursive Approach
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        prev, node = None, head
+        while node:
+            node.prev = prev
+            prev = node
+            node = node.next
+
+        def func(left, right):
+            if left == right or left.next == right:
+                return left
+            left_nxt, right_prev = left.next, right.prev
+            right_prev.next = None
+            right.next= func(left_nxt, right_prev)
+            left.next = right
+            return left
+        return func(head, prev)
+
+
+# Iterative Approach
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        slow, fast = head, head.next
+        
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        nxt = slow.next
+        slow.next = None
+        slow, prev = nxt, None
+        while slow:
+            nxt = slow.next
+            slow.next = prev
+            prev = slow
+            slow = nxt
+
+        left, right = head, prev
+        while right:
+            left_nxt, right_nxt = left.next, right.next
+            left.next = right
+            right.next = left_nxt
+
+            left, right = left_nxt, right_nxt
+        return head
