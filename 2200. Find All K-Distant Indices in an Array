@@ -1,0 +1,10 @@
+class Solution:
+    def findKDistantIndices(self, nums: List[int], key: int, k: int) -> List[int]:
+        last_index, length = 0, len(nums)
+        res = []
+
+        for index, num in enumerate(nums):
+            if num == key:
+                res.extend([index for index in range(max(index - k, last_index), min(length, index + k + 1))])
+                last_index = index + k + 1
+        return sorted(res)
