@@ -1,0 +1,27 @@
+class Solution:
+    def decodeString(self, s: str) -> str:
+        stack = ['1', '[']
+        s += ']'
+        
+        for index, chr in enumerate(s):
+            if chr != ']':
+                if stack and ((stack[-1].isdigit() and chr.isdigit()) or (stack[-1].isalpha() and chr.isalpha())):
+                    stack[-1] += chr
+                else:
+                    stack.append(chr)
+                continue
+
+            res = ''
+            while stack and stack[-1] != '[':
+                word = stack.pop()    
+                res = word + res
+
+            if stack and stack[-1] == '[':
+                stack.pop()
+                num = stack.pop()
+                res = res * int(num)
+
+            if res:
+                stack.append(res)
+
+        return stack[0]
