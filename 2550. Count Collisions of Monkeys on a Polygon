@@ -1,0 +1,6 @@
+# Solution on Leetcode: https://leetcode.com/problems/count-collisions-of-monkeys-on-a-polygon/solutions/6901822/a-clever-mathematical-insight-very-simpl-2t9o/
+
+class Solution:
+    def monkeyMove(self, n: int) -> int:
+        res = pow(2, n, 10**9 + 7) - 2
+        return res if res >= 0 else res + 10**9 + 7
