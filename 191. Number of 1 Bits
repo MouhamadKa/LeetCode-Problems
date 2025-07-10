@@ -1,0 +1,5 @@
+# Solution link on LeetCode: https://leetcode.com/problems/number-of-1-bits/solutions/6941851/pythonic-one-line-solution-very-simple-b-72gh/
+
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        return bin(n).count('1')
