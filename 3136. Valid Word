@@ -1,0 +1,17 @@
+# Solution on LeetCode: https://leetcode.com/problems/valid-word/solutions/6960770/very-easy-efficient-beats-100-by-mouhama-lb7z/
+
+class Solution:
+    def isValid(self, word: str) -> bool:
+        length = vowel = consonant = 0
+        vowels = ('a', 'e', 'i', 'o', 'u')
+        for chr in word:
+            if not chr.isalnum():
+                return False
+            length += 1
+            if chr.lower() in vowels:
+                vowel = True
+            elif not chr.isdigit():
+                consonant = True
+
+        # print(length, vowel, consonant)
+        return bool(length > 2 and vowel and consonant)
