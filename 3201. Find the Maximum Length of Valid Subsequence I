@@ -1,0 +1,16 @@
+class Solution:
+    def maximumLength(self, nums: List[int]) -> int:
+        even_count, odd_count = int(nums[0] % 2 == 0), int(nums[0] % 2)
+        dif = 1
+        left = 0
+        for right in range(1, len(nums)):
+            if nums[right] % 2:
+                odd_count += 1
+            else:
+                even_count += 1
+            if (nums[left] + nums[right]) % 2:
+                dif += 1
+                left = right
+
+        # print(even_count, odd_count, dif)
+        return max(even_count, odd_count, dif)
