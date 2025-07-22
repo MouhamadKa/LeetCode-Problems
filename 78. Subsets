@@ -1,0 +1,16 @@
+# Solution on LeetCode: https://leetcode.com/problems/subsets/solutions/6989548/generating-all-subsets-efficient-backtra-z9hy/
+
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = [[]]
+        length = len(nums)
+        def func(arr, index):
+            if index == length:
+                return
+            func(arr.copy(), index + 1)
+            arr.append(nums[index])
+            res.append(arr.copy())
+            func(arr.copy(), index + 1)
+        
+        func([], 0)
+        return res
