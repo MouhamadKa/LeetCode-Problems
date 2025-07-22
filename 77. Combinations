@@ -1,0 +1,18 @@
+# Solution link on LeetCode: https://leetcode.com/problems/combinations/solutions/6989371/generating-combinations-efficient-backtr-ozpu/
+
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        res = []
+        def func(arr, num):
+            if num == k:
+                res.append(arr)
+                return
+
+            start = arr[-1] + 1 if arr else 1
+            if n + num + 1 - start < k:
+                return
+
+            for digit in range(start, n + 1):
+                func(arr + [digit], num + 1)
+        func([], 0)
+        return res
