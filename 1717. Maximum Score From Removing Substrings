@@ -1,0 +1,20 @@
+# Solution on LeetCode: https://leetcode.com/problems/maximum-score-from-removing-substrings/solutions/6995076/maximizing-score-from-substring-removal-el6pm/
+
+class Solution:
+    def maximumGain(self, s: str, x: int, y: int) -> int:
+        greater, smaller = ('b', 'a') if y > x else ('a', 'b')
+        res = a = b = 0
+
+        for letter in s:
+            if letter == greater:
+                b += 1
+            elif letter == smaller:
+                if b:
+                    b -= 1
+                    res +=  max(x, y)
+                else:
+                    a += 1
+            else:
+                res += min(a, b) * min(x, y)
+                a = b = 0
+        return res + min(a, b) * min(x, y)
