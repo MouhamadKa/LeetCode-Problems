@@ -1,0 +1,7 @@
+Solution on LeetCode: https://leetcode.com/problems/maximum-unique-subarray-sum-after-deletion/solutions/7002350/very-easy-efficient-beats-100-by-mouhama-1f0y/
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        nums = set(nums)
+        _max = max(nums)
+        return sum(num for num in nums if num > 0) if _max >= 0 else _max
