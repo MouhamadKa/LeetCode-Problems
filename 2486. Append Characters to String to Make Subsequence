@@ -1,0 +1,13 @@
+Solution on LeetCode: https://leetcode.com/problems/append-characters-to-string-to-make-subsequence/solutions/7007676/two-pointer-approach-very-simple-efficie-cdzv/
+
+class Solution:
+    def appendCharacters(self, s: str, t: str) -> int:
+        index = 0
+        length = len(t)
+
+        for i in range(len(s)):
+            if s[i] == t[index]:
+                index += 1
+            if index == length:
+                return 0
+        return length - index
