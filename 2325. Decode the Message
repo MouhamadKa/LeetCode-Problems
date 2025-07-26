@@ -1,0 +1,11 @@
+# Solution on LeetCode: https://leetcode.com/problems/decode-the-message/solutions/7008677/decoding-substitution-ciphers-efficient-2zj9p/
+
+class Solution:
+    def decodeMessage(self, key: str, message: str) -> str:
+        indices = {}
+        counter = 0
+        for letter in key:
+            if letter not in indices and letter != ' ':
+                indices[letter] = counter
+                counter += 1
+        return ''.join(chr(ord('a') + indices[letter]) if letter != ' ' else ' ' for letter in message)
