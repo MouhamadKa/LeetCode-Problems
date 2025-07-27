@@ -1,0 +1,15 @@
+# Solution on LeetCode: https://leetcode.com/problems/count-hills-and-valleys-in-an-array/solutions/7010451/single-pass-linear-time-constant-space-b-x5l5/
+
+class Solution:
+    def countHillValley(self, nums: List[int]) -> int:
+        res, INC = 0, None
+        for i in range(1, len(nums)):
+            if nums[i] > nums[i - 1]:
+                if INC == False:
+                    res += 1
+                INC = True
+            elif nums[i] < nums[i - 1]:
+                if INC:
+                    res += 1
+                INC = False
+        return res
