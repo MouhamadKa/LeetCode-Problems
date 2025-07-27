@@ -1,0 +1,15 @@
+# Solution on LeetCode: https://leetcode.com/problems/sender-with-largest-word-count/solutions/7010274/efficient-counting-and-comparison-using-zvrg6/
+
+class Solution:
+    def largestWordCount(self, messages: List[str], senders: List[str]) -> str:
+        _max = 0
+        count, res = {}, []
+        for i in range(len(senders)):
+            count[senders[i]] = count.get(senders[i], 0) + messages[i].count(' ') + 1
+            if count[senders[i]] > _max:
+                _max = count[senders[i]]
+                res = [senders[i]]
+            elif count[senders[i]] == _max:
+                res.append(senders[i])
+
+        return max(res)
