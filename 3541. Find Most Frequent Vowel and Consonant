@@ -1,0 +1,16 @@
+# Solution on LeetCode: https://leetcode.com/problems/find-most-frequent-vowel-and-consonant/solutions/7025876/maximizing-vowel-and-consonant-frequenci-5vqc/
+
+class Solution:
+    def maxFreqSum(self, s: str) -> int:
+        vowels = ('a', 'e', 'i', 'o', 'u')
+        arr = [0] * 26
+        max_c = max_v = 0
+        for letter in s:
+            index = ord(letter) - ord('a')
+            arr[index] += 1
+            if letter in vowels:
+                max_v = max(max_v, arr[index])
+            else:
+                max_c = max(max_c, arr[index])
+
+        return max_c + max_v
