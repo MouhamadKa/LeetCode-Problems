@@ -1,0 +1,13 @@
+# Solution on Leetcode: https://leetcode.com/problems/reordered-power-of-2/solutions/7063497/neat-solution-by-comparing-string-repres-jivy/
+
+class Solution:
+    def reorderedPowerOf2(self, n: int) -> bool:
+        n_str = sorted(str(n))
+        for i in range(30):
+            num_str = soretd(str(2 ** i))
+            if len(num_str) < length:
+                continue
+            if len(num_str) > length:
+                return False
+            if sorted(num_str) == n_str:
+                return True
